@@ -38,7 +38,23 @@ export default function Home({ blogs, randomNumber }) {
 // This function is called during the build (build time), always server side
 // Provides props to your page
 // It will create static page
+/*
 export const getStaticProps = async () => {
+  const randomNumber = Math.random();
+  const blogs = await getAllBlogs();
+  return {
+    props: {
+      blogs,
+      randomNumber
+    }
+  }
+}
+*/
+/*
+Generate Dynamic pages using getServerSideProps
+It recreate the data at every request
+*/
+export const getServerSideProps = async () => {
   const randomNumber = Math.random();
   const blogs = await getAllBlogs();
   return {
