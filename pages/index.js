@@ -6,11 +6,12 @@ import CardItem from 'components/CardItem'
 
 import { getAllBlogs } from 'lib/api'
 
-export default function Home({ blogs }) {
+export default function Home({ blogs, randomNumber }) {
   return (
     <PageLayout>
       <AuthorIntro />
       <hr/>
+      {randomNumber}
       {/* className from props */}
       <Row className="mb-5">
         {/*
@@ -38,11 +39,12 @@ export default function Home({ blogs }) {
 // Provides props to your page
 // It will create static page
 export const getStaticProps = async () => {
-  console.log('inside getStaticProps')
+  const randomNumber = Math.random();
   const blogs = await getAllBlogs();
   return {
     props: {
-      blogs
+      blogs,
+      randomNumber
     }
   }
 }
