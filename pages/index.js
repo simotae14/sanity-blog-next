@@ -19,9 +19,10 @@ export default function Home({ blogs }) {
         </Col>
         */}
         {
-          blogs.map(({ slug, title, subtitle, date, coverImage }) => (
+          blogs.map(({ slug, title, subtitle, date, coverImage, author }) => (
             <Col key={slug} md="4">
               <CardItem
+                author={author}
                 title={title}
                 subtitle={subtitle}
                 date={date}
