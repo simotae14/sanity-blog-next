@@ -6,12 +6,11 @@ import CardItem from 'components/CardItem'
 
 import { getAllBlogs } from 'lib/api'
 
-export default function Home({ blogs, randomNumber }) {
+export default function Home({ blogs }) {
   return (
     <PageLayout>
       <AuthorIntro />
       <hr/>
-      {randomNumber}
       {/* className from props */}
       <Row className="mb-5">
         {/*
@@ -20,11 +19,13 @@ export default function Home({ blogs, randomNumber }) {
         </Col>
         */}
         {
-          blogs.map(({ slug, title, subtitle }) => (
+          blogs.map(({ slug, title, subtitle, date, coverImage }) => (
             <Col key={slug} md="4">
               <CardItem
                 title={title}
                 subtitle={subtitle}
+                date={date}
+                image={coverImage}
               />
             </Col>
           ))
@@ -35,32 +36,11 @@ export default function Home({ blogs, randomNumber }) {
   )
 }
 
-// This function is called during the build (build time), always server side
-// Provides props to your page
-// It will create static page
-/*
 export const getStaticProps = async () => {
-  const randomNumber = Math.random();
   const blogs = await getAllBlogs();
   return {
     props: {
-      blogs,
-      randomNumber
-    }
-  }
-}
-*/
-/*
-Generate Dynamic pages using getServerSideProps
-It recreate the data at every request
-*/
-export const getServerSideProps = async () => {
-  const randomNumber = Math.random();
-  const blogs = await getAllBlogs();
-  return {
-    props: {
-      blogs,
-      randomNumber
+      blogs
     }
   }
 }
