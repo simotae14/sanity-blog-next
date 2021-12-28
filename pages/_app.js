@@ -1,5 +1,6 @@
 // import bootstrap css
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'highlight.js/styles/base16/darcula.css'
 // import my file scss
 import 'styles/index.scss'
 
