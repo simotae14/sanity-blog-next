@@ -1,29 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import PageLayout from "components/PageLayout"
 import BlogHeader from 'components/BlogHeader'
+import BlogContent from "components/BlogContent"
 import { getBlogBySlug, getAllBlogs } from 'lib/api'
 import { Row, Col } from 'react-bootstrap'
-
-import BlockContent from '@sanity/block-content-to-react'
-
-const serializers = {
-  types: {
-    code: ({
-      node: {
-        language,
-        code,
-        filename
-      }
-    }) => {
-      return (
-        <pre data-language={language}>
-          <code>{code}</code>
-          <p>{filename}</p>
-        </pre>
-      )
-    }
-  }
-}
 
 const BlogDetail = ({ blog }) => {
   return (
@@ -39,15 +19,7 @@ const BlogDetail = ({ blog }) => {
           />
           <hr/>
           {/* Blog Content Here */}
-          <BlockContent
-            blocks={blog.content}
-            serializers={serializers}
-            imageOptions={{
-              w: 320,
-              h: 240,
-              fit: 'max'
-            }}
-          />
+          <BlogContent content={blog.content} />
         </Col>
       </Row>
     </PageLayout>
