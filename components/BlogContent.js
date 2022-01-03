@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import BlockContent from '@sanity/block-content-to-react'
 import HighlightCode from 'components/HighlightCode'
+import { urlFor } from 'lib/api';
 
 const serializers = {
   types: {
@@ -26,7 +27,7 @@ const serializers = {
     } }) => {
       return (
         <div className="blog-image">
-          <img alt={alt} src={asset.url} />
+          <img alt={alt} src={urlFor(asset).height(300).fit('max').url()} />
           <div className="image-alt">{alt}</div>
         </div>
       )
