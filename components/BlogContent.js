@@ -23,7 +23,8 @@ const serializers = {
     },
     image: ({ node: {
       asset,
-      alt
+      alt,
+      position
     } }) => {
       return (
         <div className="blog-image">
