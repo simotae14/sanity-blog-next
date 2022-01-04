@@ -26,17 +26,8 @@ const serializers = {
       alt,
       position = 'center'
     } }) => {
-      let style = {};
-      if (position === 'left') {
-        style.float = position;
-        style.marginRight = '30px';
-      }
-      if (position === 'right') {
-        style.float = position;
-        style.marginLeft = '30px';
-      }
       return (
-        <div className="blog-image" style={{ ...style }}>
+        <div className={`blog-image blog-image-${position}`}>
           <img alt={alt} src={urlFor(asset).height(300).fit('max').url()} />
           <div className="image-alt">{alt}</div>
         </div>
