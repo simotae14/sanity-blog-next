@@ -1,15 +1,27 @@
+import { useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import PageLayout from 'components/PageLayout'
 import AuthorIntro from 'components/AuthorIntro'
 import CardListItem from 'components/CardListItem'
 import CardItem from 'components/CardItem'
+import FilteringMenu from 'components/FilteringMenu'
 
 import { getAllBlogs } from 'lib/api'
 
 export default function Home({ blogs }) {
+  const [filter, setFilter] = useState({
+    view: {
+      list: 1 // if 0 we display cards, if 1 we display a list
+    }
+  });
   return (
     <PageLayout>
       <AuthorIntro />
+      <FilteringMenu
+        onChange={() => {
+
+        }}
+      />
       <hr/>
       {/* className from props */}
       <Row className="mb-5">
@@ -19,7 +31,12 @@ export default function Home({ blogs }) {
         </Col>
         */}
         {
-          blogs.map(({ slug, title, subtitle, date, coverImage, author }) => (
+          blogs.map(({ slug, title, subtitle, date, coverImage, author }) =>
+          filter.view.list ? (
+            <Col md="9">
+              <CardListItem />
+            </Col>
+          ) : (
             <Col key={slug} md="4">
               <CardItem
                 author={author}
