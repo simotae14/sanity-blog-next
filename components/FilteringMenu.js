@@ -1,10 +1,12 @@
-const FilteringMenu = ({ onChange }) => {
+const FilteringMenu = ({ filter, onChange }) => {
   return (
     <div className="filtering-menu mb-2">
       <div onClick={() => {
-        onChange();
+        onChange('view', {
+          list: +!filter.view.list
+        }); // the first parameter is the key inside the state filter
       }}>
-        Change View
+        List Filter - { filter.view.list }
       </div>
     </div>
   );

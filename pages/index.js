@@ -11,15 +11,19 @@ import { getAllBlogs } from 'lib/api'
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: {
-      list: 1 // if 0 we display cards, if 1 we display a list
+      list: 0 // if 0 we display cards, if 1 we display a list
     }
   });
   return (
     <PageLayout>
       <AuthorIntro />
       <FilteringMenu
-        onChange={() => {
-
+        filter={filter}
+        onChange={(option, value) => {
+          setFilter({
+            ...filter,
+            [option]: value
+          })
         }}
       />
       <hr/>
@@ -33,7 +37,7 @@ export default function Home({ blogs }) {
         {
           blogs.map(({ slug, title, subtitle, date, coverImage, author }) =>
           filter.view.list ? (
-            <Col md="9">
+            <Col key={`${slug}-list`} md="9">
               <CardListItem />
             </Col>
           ) : (
