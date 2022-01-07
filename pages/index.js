@@ -75,7 +75,7 @@ export default function Home({ blogs: initialData }) {
 }
 
 export const getStaticProps = async () => {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({ offset: 0 });
   return {
     props: {
       blogs
