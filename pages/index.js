@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import useSWR from 'swr'
 import { Row, Col } from 'react-bootstrap'
 import PageLayout from 'components/PageLayout'
 import AuthorIntro from 'components/AuthorIntro'
@@ -8,8 +7,7 @@ import CardItem from 'components/CardItem'
 import FilteringMenu from 'components/FilteringMenu'
 
 import { getAllBlogs } from 'lib/api'
-
-const fetcher = url => fetch(url).then(res => res.json());
+import { useGetHello } from 'actions'
 
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
@@ -17,9 +15,10 @@ export default function Home({ blogs }) {
       list: 0 // if 0 we display cards, if 1 we display a list
     }
   });
-  // use useSWR
-  const { data, error } = useSWR('/api/hello', fetcher);
-  debugger
+  const { data, error } = useGetHello();
+  if (data) {
+    alert(JSON.stringify(data));
+  }
   return (
     <PageLayout>
       <AuthorIntro />
