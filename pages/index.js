@@ -7,18 +7,16 @@ import CardItem from 'components/CardItem'
 import FilteringMenu from 'components/FilteringMenu'
 
 import { getAllBlogs } from 'lib/api'
-import { useGetHello } from 'actions'
+import { useGetBlogs } from 'actions'
 
-export default function Home({ blogs }) {
+export default function Home({ blogs: initialData }) {
   const [filter, setFilter] = useState({
     view: {
       list: 0 // if 0 we display cards, if 1 we display a list
     }
   });
-  const { data, error } = useGetHello();
-  if (data) {
-    alert(JSON.stringify(data));
-  }
+  const { data: blogs, error } = useGetBlogs(initialData);
+
   return (
     <PageLayout>
       <AuthorIntro />
