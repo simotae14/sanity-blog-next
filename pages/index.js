@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useSWR from 'swr'
 import { Row, Col } from 'react-bootstrap'
 import PageLayout from 'components/PageLayout'
 import AuthorIntro from 'components/AuthorIntro'
@@ -8,12 +9,17 @@ import FilteringMenu from 'components/FilteringMenu'
 
 import { getAllBlogs } from 'lib/api'
 
+const fetcher = url => fetch(url).then(res => res.json());
+
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: {
       list: 0 // if 0 we display cards, if 1 we display a list
     }
   });
+  // use useSWR
+  const { data, error } = useSWR('/api/hello', fetcher);
+  debugger
   return (
     <PageLayout>
       <AuthorIntro />
