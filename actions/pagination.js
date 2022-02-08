@@ -9,10 +9,8 @@ export const useGetBlogsPages = ({blogs: initialData, filter}) => {
     'index-page',
     // callback, we fetch the data
     ({offset, withSWR}) => {
-      debugger;
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { data: blogs } = withSWR(useGetBlogs(initialData));
-      console.log(offset);
+      const { data: blogs } = withSWR(useGetBlogs({offset}));
       if (!blogs) { return 'Loading...'}
 
       return blogs
@@ -50,8 +48,9 @@ export const useGetBlogsPages = ({blogs: initialData, filter}) => {
     // SWR: data you will get from 'withSWR' function
     // index: number of current page
     (SWR, index) => {
-      // TODO: Compute offset here!
-      return 0
+      // SWR contains the previous data
+      if (SWR.data && SWR.data.length === 0) { return null }
+      return (index + 1) * 3
     },
     // array dependencies
     [filter]
