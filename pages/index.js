@@ -1,33 +1,36 @@
 import { useState } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row } from 'react-bootstrap'
 import PageLayout from 'components/PageLayout'
 import AuthorIntro from 'components/AuthorIntro'
-import CardListItem from 'components/CardListItem'
-import CardItem from 'components/CardItem'
 import FilteringMenu from 'components/FilteringMenu'
 
+import { useGetBlogsPages } from 'actions/pagination'
 import { getAllBlogs } from 'lib/api'
-import { useGetBlogs } from 'actions'
 
-export default function Home({ blogs: initialData }) {
+export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: {
       list: 0 // if 0 we display cards, if 1 we display a list
     }
   });
-  const { data: blogs, error } = useGetBlogs(initialData);
+
+  const {
+    pages,
+    isLoadingMore,
+    isReachingEnd,
+    loadMore
+  } = useGetBlogsPages({blogs, filter});
 
   return (
     <PageLayout>
       <AuthorIntro />
       <FilteringMenu
         filter={filter}
-        onChange={(option, value) => {
-          setFilter({
+        onChange={(option, value) => setFilter({
             ...filter,
             [option]: value
           })
-        }}
+        }
       />
       <hr/>
       {/* className from props */}
@@ -37,38 +40,7 @@ export default function Home({ blogs: initialData }) {
           <CardListItem />
         </Col>
         */}
-        {
-          blogs.map(({ slug, title, subtitle, date, coverImage, author }) =>
-          filter.view.list ? (
-            <Col key={`${slug}-list`} md="9">
-              <CardListItem
-                author={author}
-                title={title}
-                subtitle={subtitle}
-                date={date}
-                link={{
-                  href: "/blogs/[slug]",
-                  as: `/blogs/${slug}`
-                }}
-              />
-            </Col>
-          ) : (
-            <Col key={slug} md="4">
-              <CardItem
-                author={author}
-                title={title}
-                subtitle={subtitle}
-                date={date}
-                image={coverImage}
-                link={{
-                  href: "/blogs/[slug]",
-                  as: `/blogs/${slug}`
-                }}
-              />
-            </Col>
-          ))
-        }
-
+        {pages}
       </Row>
     </PageLayout>
   )
