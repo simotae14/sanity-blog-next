@@ -11,7 +11,7 @@ export const useGetBlogsPages = ({blogs, filter}) => {
     ({offset, withSWR}) => {
       let initialData = !offset && blogs;
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { data: paginatedBlogs } = withSWR(useGetBlogs({offset}, initialData));
+      const { data: paginatedBlogs } = withSWR(useGetBlogs({offset, filter}, initialData));
       if (!paginatedBlogs) { return 'Loading...'}
 
       return paginatedBlogs
