@@ -3,12 +3,14 @@ import { library, config } from '@fortawesome/fontawesome-svg-core'
 // import the 2 fontawesome icons
 import {
   faBorderAll,
-  faList
+  faList,
+  faSortNumericDown,
+  faSortNumericUp
 } from '@fortawesome/free-solid-svg-icons'
 // disable automatic import of fontawesome css
 config.autoAddCss = false;
 // add the icons to the library
-library.add(faList, faBorderAll);
+library.add(faList, faBorderAll, faSortNumericDown, faSortNumericUp);
 
 // import Fontawesome style
 import '@fortawesome/fontawesome-svg-core/styles.css'

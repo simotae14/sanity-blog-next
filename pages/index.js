@@ -11,6 +11,10 @@ export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: {
       list: 0 // if 0 we display cards, if 1 we display a list
+    },
+    // add filter for the date
+    date: {
+      asc: 0
     }
   });
 
